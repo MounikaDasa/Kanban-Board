@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { CheckSquare, Clock, MoreHorizontal } from "react-feather";
+import { CheckSquare,Circle, Clock, MoreHorizontal } from "react-feather";
 
 import Dropdown from "../Dropdown/Dropdown";
 import "./Card.css";
 import CardInfo from "./CardInfo/CardInfo";
+
 
 
 
@@ -94,11 +95,22 @@ function Card(props) {
             )}
           </div>
         </div>
+        <div className="card_title" style={{color:'gray'}}>{id}</div>
         <div className="card_title">{title}</div>
         <div className="card_buttons">
-          <button onClick={handleFeatureRequest}>Feature Request</button>
-          <button onClick={handleShowDetails}>...</button>
+        <div className="card_buttons" style={{ display: 'flex', alignItems: 'center' }}>
+          <button onClick={handleShowDetails} style={{ margin: '1rem', background: 'white', borderRadius: '8px', padding: '8px', border: 'none' }}>
+            <MoreHorizontal />
+          </button>
+          <button onClick={handleFeatureRequest} style={{ background: 'white', borderRadius: '8px', padding: '8px', border: 'none', display: 'flex', alignItems: 'center' }}>
+            <Circle style={{ color: 'gray', fill: 'gray',  margin: '0.5rem' }} />
+            Feature Request
+          </button>
         </div>
+
+
+      </div>
+
         {showDetails && (
           <div className="card_details">
             <p className="card_detail">Priority: {priority}</p>

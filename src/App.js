@@ -6,6 +6,7 @@ import CustomDropdown from "./Components/CustomDropdown";
 import Editable from "./Components/Editabled/Editable";
 
 
+
 import "./App.css";
 
 function App() {
@@ -154,26 +155,48 @@ function App() {
         return grouped;
       }, {});
     } else if (selectedGrouping === 'priority') {
-      // Group by priority
+      // Mapping of priority values to board names
+      const priorityBoardNames = {
+        0: 'No Priority',
+        1: 'Low',
+        2: 'Medium',
+        3: 'High',
+        4: 'Urgent',
+      };
+    
+      // Group by priority with mapped board names
       groupedTickets = tickets.reduce((grouped, ticket) => {
         const priority = ticket.priority;
-        if (!grouped[priority]) {
-          grouped[priority] = [];
+        const boardName = priorityBoardNames[priority];
+        if (!grouped[boardName]) {
+          grouped[boardName] = [];
         }
-        grouped[priority].push(ticket);
+        grouped[boardName].push(ticket);
         return grouped;
       }, {});
+    
+    
     } else if (selectedGrouping === 'user') {
-      // Group by user
+      console.log(users);
+    
       groupedTickets = tickets.reduce((grouped, ticket) => {
         const userId = ticket.userId;
-        if (!grouped[userId]) {
-          grouped[userId] = [];
+        const user = users.find((user) => user.id === userId);
+    
+        if (user) {
+          const userName = user.name;
+    
+          if (!grouped[userName]) {
+            grouped[userName] = [];
+          }
+    
+          grouped[userName].push(ticket);
         }
-        grouped[userId].push(ticket);
+    
         return grouped;
       }, {});
     }
+    
 
     setGroupedUserTickets(groupedTickets);
     
@@ -310,19 +333,18 @@ function App() {
   return (
     <div className="app">
       <div className="app_nav">
+      
         <h1>Kanban Board</h1>
         <CustomDropdown
           onGroupingChange={handleGroupingChange}
           onOrderingChange={handleOrderingChange}
-        />
-      
-        <div>
-          
+        />          
           <div>
             <h3>Selected Grouping: {selectedGrouping}</h3>
           
           </div>
-        </div>
+       
+       
         <div className="app_boards_container">
           <div className="app_boards">
             {boards.map((item) => (

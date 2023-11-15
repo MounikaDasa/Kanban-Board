@@ -6,8 +6,9 @@ import { MoreHorizontal } from "react-feather";
 import Card from "../Card/Card";
 import Dropdown from "../Dropdown/Dropdown";
 import Editable from "../Editabled/Editable";
-
+import AddIcon from '@mui/icons-material/Add';
 import "./Board.css";
+
 
 function Board(props) {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -17,10 +18,20 @@ function Board(props) {
   return (
     <div className="board">
       <div className="board_header">
-        <p className="board_header_title">
+        <p className="board_header_title" style={{margin:20}}>
           {props.board?.title}
           <span>{props.board?.cards?.length || 0}</span>
         </p>
+        
+         <Editable
+          text=<AddIcon />
+          placeholder="Enter Card Title"
+          displayClass=""
+          editClass=""
+          onSubmit={(value) => props.addCard(props.board?.id, value)}
+          
+        />
+     
         <div
           className="board_header_title_more"
           onClick={() => setShowDropdown(true)}
@@ -48,13 +59,7 @@ function Board(props) {
             draggable={true} // Set draggable to true for each Card
           />
         ))}
-        <Editable
-          text="+ Add Card"
-          placeholder="Enter Card Title"
-          displayClass="board_add-card"
-          editClass="board_add-card_edit"
-          onSubmit={(value) => props.addCard(props.board?.id, value)}
-        />
+       
       </div>
     </div>
   );
