@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// Board.js
+
+import React, { useState, useEffect } from "react";
 import { MoreHorizontal } from "react-feather";
 
 import Card from "../Card/Card";
@@ -9,6 +11,8 @@ import "./Board.css";
 
 function Board(props) {
   const [showDropdown, setShowDropdown] = useState(false);
+
+
 
   return (
     <div className="board">
@@ -21,7 +25,6 @@ function Board(props) {
           className="board_header_title_more"
           onClick={() => setShowDropdown(true)}
         >
-          <MoreHorizontal />
           {showDropdown && (
             <Dropdown
               class="board_dropdown"
@@ -42,6 +45,7 @@ function Board(props) {
             dragEntered={props.dragEntered}
             dragEnded={props.dragEnded}
             updateCard={props.updateCard}
+            draggable={true} // Set draggable to true for each Card
           />
         ))}
         <Editable

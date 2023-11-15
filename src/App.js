@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from "react";
-import Card from "./Components/Card/Card"
-import Board from "./Components/Board/Board";
+import { fetchData } from './utils';
 
-import "./App.css";
+import Board from "./Components/Board/Board";
+import CustomDropdown from "./Components/CustomDropdown";
 import Editable from "./Components/Editabled/Editable";
 
 
+import "./App.css";
 
 function App() {
   const [boards, setBoards] = useState(
-    JSON.parse(localStorage.getItem("prac-kanban")) || []
+     []
   );
+ 
 
   const [targetCard, setTargetCard] = useState({
     bid: "",
     cid: "",
   });
+  
+  const handleGroupingChange = (value) => {
+    setSelectedGrouping(value);
+  };
+
+  const handleOrderingChange = (value) => {
+    setSelectedOrdering(value);
+  };
 
   const addboardHandler = (name) => {
     const tempBoards = [...boards];
@@ -26,8 +36,10 @@ function App() {
     });
     setBoards(tempBoards);
   };
+  
 
   const removeBoard = (id) => {
+    
     const index = boards.findIndex((item) => item.id === id);
     if (index < 0) return;
 
@@ -37,38 +49,181 @@ function App() {
   };
 
   const addCardHandler = (id, title) => {
+    console.log(id, title);
     const index = boards.findIndex((item) => item.id === id);
-    if (index < 0) return;
-
-    const tempBoards = [...boards];
-    tempBoards[index].cards.push({
-      id: Date.now() + Math.random() * 2,
-      title,
-      labels: [],
-      date: "",
-      tasks: [],
-    });
-    setBoards(tempBoards);
+  
+    if (index < 0) {
+      // Board with the given id is not found, add a new card directly to groupedUserTickets
+    
+      const newCard = {
+        id: Date.now() + Math.random() * 2,
+        title,
+        
+      };
+  
+      setGroupedUserTickets((prevGrouped) => {
+        console.log("Previous Grouped:", prevGrouped[id]);
+        prevGrouped[id]=[...prevGrouped[id],newCard]
+        
+      
+        return {
+          ...prevGrouped,
+          // Your state update logic here
+        };
+      });
+    
+    } else {
+      // Board with the given id is found, add a new card to the existing board
+      const tempBoards = [...boards];
+      tempBoards[index].cards.push({
+        id: Date.now() + Math.random() * 2,
+        title,
+        labels: [],
+        date: "",
+        tasks: [],
+      });
+  
+      setBoards(tempBoards);
+    }
   };
+  
 
-  const removeCard = (bid, cid) => {
-    const index = boards.findIndex((item) => item.id === bid);
-    if (index < 0) return;
+      const removeCard = (bid, cid) => {
+        
+        const index = boards.findIndex((item) => item.id === bid);
+      
+        if (index < 0) {
+          // Board with the given id is not found, remove the card from groupedUserTickets
+          console.log("Board not found, removing from groupedUserTickets");
+      
+          setGroupedUserTickets((prevGrouped) => {
+            const updatedGrouped = { ...prevGrouped };
+      
+            // Check if the board exists in groupedUserTickets
+            if (updatedGrouped[bid]) {
+              // Filter out the card with the matching cid
+              updatedGrouped[bid] = updatedGrouped[bid].filter((card) => card.id !== cid);
+            }
+      
+            return updatedGrouped;
+          });
+      
+          return;
+        }
+      
+        // Board is found, remove the card from the board in boards
+        const tempBoards = [...boards];
+        const cards = tempBoards[index].cards;
+      
+        const cardIndex = cards.findIndex((item) => item.id === cid);
+        if (cardIndex < 0) return;
+      
+        cards.splice(cardIndex, 1);
+        setBoards(tempBoards);
+      };
+  
 
-    const tempBoards = [...boards];
-    const cards = tempBoards[index].cards;
+  const [tickets, setTickets] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [groupedUserTickets, setGroupedUserTickets] = useState({
+    'Backlog': [],
+    'Todo': [],
+    'In progress': [],
+    'Done': [],
+    'Cancelled': [],
+  });
+  const [selectedGrouping, setSelectedGrouping] = useState('');
+  const [selectedOrdering, setSelectedOrdering] = useState('');
 
-    const cardIndex = cards.findIndex((item) => item.id === cid);
-    if (cardIndex < 0) return;
+  useEffect(() => {
+  fetchData().then(({ tickets, users }) => {
+  
+    setTickets(tickets);
+    setUsers(users);
 
-    cards.splice(cardIndex, 1);
-    setBoards(tempBoards);
-  };
+    // Group tickets dynamically based on selected grouping
+    let groupedTickets = {};
+    if (selectedGrouping === 'status') {
+      // Group by status
+      groupedTickets = tickets.reduce((grouped, ticket) => {
+        const status = ticket.status;
+        if (!grouped[status]) {
+          grouped[status] = [];
+        }
+        grouped[status].push(ticket);
+        return grouped;
+      }, {});
+    } else if (selectedGrouping === 'priority') {
+      // Group by priority
+      groupedTickets = tickets.reduce((grouped, ticket) => {
+        const priority = ticket.priority;
+        if (!grouped[priority]) {
+          grouped[priority] = [];
+        }
+        grouped[priority].push(ticket);
+        return grouped;
+      }, {});
+    } else if (selectedGrouping === 'user') {
+      // Group by user
+      groupedTickets = tickets.reduce((grouped, ticket) => {
+        const userId = ticket.userId;
+        if (!grouped[userId]) {
+          grouped[userId] = [];
+        }
+        grouped[userId].push(ticket);
+        return grouped;
+      }, {});
+    }
+
+    setGroupedUserTickets(groupedTickets);
+    
+
+  
+  });
+}, [selectedGrouping]);
+
+
 
   const dragEnded = (bid, cid) => {
+   
     let s_boardIndex, s_cardIndex, t_boardIndex, t_cardIndex;
     s_boardIndex = boards.findIndex((item) => item.id === bid);
-    if (s_boardIndex < 0) return;
+    if (s_boardIndex < 0) {
+      const sourceCardIndex = groupedUserTickets[bid]?.findIndex(
+        (item) => item.id === cid
+      );
+    
+      const targetCardIndex = groupedUserTickets[targetCard.bid]?.findIndex(
+        (item) => item.id === targetCard.cid
+      );
+      
+  
+      // Ensure sourceCardIndex and targetCardIndex are valid before proceeding
+      if (sourceCardIndex < 0 || targetCardIndex < 0) {
+        return;
+      }
+  
+      const sourceBoards = [...groupedUserTickets[bid]];
+      const targetBoards = [...groupedUserTickets[targetCard.bid]];
+      const sourceCard = sourceBoards[sourceCardIndex];
+  
+      sourceBoards.splice(sourceCardIndex, 1);
+      targetBoards.splice(targetCardIndex, 0, sourceCard);
+  
+      // Update the state to trigger re-render
+      setGroupedUserTickets((prevGrouped) => ({
+        ...prevGrouped,
+        [bid]: sourceBoards,
+        [targetCard.bid]: targetBoards,
+      }));
+  
+      setTargetCard({
+        bid: "",
+        cid: "",
+      });
+  
+      return;
+    }
 
     s_cardIndex = boards[s_boardIndex]?.cards?.findIndex(
       (item) => item.id === cid
@@ -101,47 +256,107 @@ function App() {
       bid,
       cid,
     });
+    console.log("drag")
   };
 
   const updateCard = (bid, cid, card) => {
+    console.log(card)
     const index = boards.findIndex((item) => item.id === bid);
-    if (index < 0) return;
-
+    if (index < 0) {
+      // Board with the given id is not found, update the card directly in groupedUserTickets
+      const sourceCardIndex = groupedUserTickets[bid]?.findIndex(
+        (item) => item.id === cid
+      );
+  
+      // Ensure sourceCardIndex is valid before proceeding
+      if (sourceCardIndex < 0) {
+        return;
+      }
+  
+      const sourceBoards = [...groupedUserTickets[bid]];
+      sourceBoards[sourceCardIndex] = card;
+  
+      // Update the state to trigger re-render
+      setGroupedUserTickets((prevGrouped) => ({
+        ...prevGrouped,
+        [bid]: sourceBoards,
+      }));
+  
+      return;
+    }
+  
+    // Board with the given id is found, update the card in the existing board
     const tempBoards = [...boards];
     const cards = tempBoards[index].cards;
-
+  
     const cardIndex = cards.findIndex((item) => item.id === cid);
-    if (cardIndex < 0) return;
-
+    if (cardIndex < 0) {
+      return;
+    }
+  
     tempBoards[index].cards[cardIndex] = card;
-
+  
+    // Update the state to trigger re-render
     setBoards(tempBoards);
   };
+  
 
   useEffect(() => {
     localStorage.setItem("prac-kanban", JSON.stringify(boards));
   }, [boards]);
+  
+  
 
   return (
     <div className="app">
       <div className="app_nav">
         <h1>Kanban Board</h1>
-      </div>
-      <div className="app_boards_container">
-        <div className="app_boards">
-          {boards.map((item) => (
-            <Board
-              key={item.id}
-              board={item}
-              addCard={addCardHandler}
-              removeBoard={() => removeBoard(item.id)}
-              removeCard={removeCard}
-              dragEnded={dragEnded}
-              dragEntered={dragEntered}
-              updateCard={updateCard}
-            />
-          ))}
-          <div className="app_boards_last">
+        <CustomDropdown
+          onGroupingChange={handleGroupingChange}
+          onOrderingChange={handleOrderingChange}
+        />
+      
+        <div>
+          
+          <div>
+            <h3>Selected Grouping: {selectedGrouping}</h3>
+          
+          </div>
+        </div>
+        <div className="app_boards_container">
+          <div className="app_boards">
+            {boards.map((item) => (
+              <Board
+                key={item.id}
+                board={item}
+                addCard={addCardHandler}
+                removeBoard={() => removeBoard(item.id)}
+                removeCard={removeCard}
+                dragEnded={dragEnded}
+                dragEntered={dragEntered}
+                updateCard={updateCard}
+                addBoard={addboardHandler}
+              />
+            ))}            
+            
+            {Object.keys(groupedUserTickets).map((boardKey) => (
+              <Board
+                key={boardKey}
+                board={{
+                  id: boardKey,
+                  title: boardKey,
+                  cards: groupedUserTickets[boardKey],
+                }}
+                addCard={addCardHandler}
+                removeBoard={() => removeBoard(boardKey)}
+                removeCard={removeCard}
+                dragEnded={dragEnded}
+                dragEntered={dragEntered}
+                updateCard={updateCard}
+                addBoard={addboardHandler}
+              />
+            ))}
+            <div className="app_boards_last">
             <Editable
               displayClass="app_boards_add-board"
               editClass="app_boards_add-board_edit"
@@ -150,13 +365,12 @@ function App() {
               buttonText="Add Board"
               onSubmit={addboardHandler}
             />
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-
 
 export default App;

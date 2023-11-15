@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import { CheckSquare, Clock, MoreHorizontal } from "react-feather";
 
 import Dropdown from "../Dropdown/Dropdown";
-
 import "./Card.css";
 import CardInfo from "./CardInfo/CardInfo";
+
+
 
 function Card(props) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showDetails, setShowDetails] = useState(false); // New state for additional details
 
-  const { id, title, date, tasks, labels } = props.card;
+  const { id, title, priority, status, tag, userId, date, tasks, labels } =
+    props.card;
 
   const formatDate = (value) => {
     if (!value) return "";
@@ -21,7 +24,7 @@ function Card(props) {
       "Jan",
       "Feb",
       "Mar",
-      "Aprl",
+      "Apr",
       "May",
       "Jun",
       "Jul",
@@ -37,6 +40,15 @@ function Card(props) {
     return day + " " + month;
   };
 
+  const handleFeatureRequest = () => {
+   
+    setShowModal(true);
+  };
+
+  const handleShowDetails = () => {
+    setShowDetails(!showDetails);
+  };
+
   return (
     <>
       {showModal && (
@@ -47,12 +59,12 @@ function Card(props) {
           updateCard={props.updateCard}
         />
       )}
+
       <div
         className="card"
         draggable
         onDragEnd={() => props.dragEnded(props.boardId, id)}
         onDragEnter={() => props.dragEntered(props.boardId, id)}
-        onClick={() => setShowModal(true)}
       >
         <div className="card_top">
           <div className="card_top_labels">
@@ -83,6 +95,18 @@ function Card(props) {
           </div>
         </div>
         <div className="card_title">{title}</div>
+        <div className="card_buttons">
+          <button onClick={handleFeatureRequest}>Feature Request</button>
+          <button onClick={handleShowDetails}>...</button>
+        </div>
+        {showDetails && (
+          <div className="card_details">
+            <p className="card_detail">Priority: {priority}</p>
+            <p className="card_detail">Status: {status}</p>
+            <p className="card_detail">Tag: {tag}</p>
+            <p className="card_detail">User ID: {userId}</p>
+          </div>
+        )}
         <div className="card_footer">
           {date && (
             <p className="card_footer_item">
@@ -103,3 +127,4 @@ function Card(props) {
 }
 
 export default Card;
+
