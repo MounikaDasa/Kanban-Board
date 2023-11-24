@@ -50,12 +50,13 @@ Click on the display option, you are provide with 2 options Grouping and Orderin
 ### Task Board Module
 A modular component for displaying and interacting with individual task cards.
 The task cards will be displayed based on the Grouping options that you selected
- ![API Screenshot](public/images/Screenshot 2023-11-24 121944.png)
+ ![Alt Text](https://github.com/MounikaDasa/Kanban-Board/raw/main/public/images/Screenshot%202023-11-24%20121944.png)
+
 The above  is for the Priority Grouping
  
- ![API Screenshot](public/images/Screenshot 2023-11-24 122015.png)
+![Alt Text](https://github.com/MounikaDasa/Kanban-Board/blob/main/public/images/Screenshot%202023-11-24%20122015.png).
 The above  is for the User grouping
-  ![API Screenshot](public/images/Screenshot 2023-11-24 122037.png)
+  ![API Screenshot](https://github.com/MounikaDasa/Kanban-Board/blob/main/public/images/Screenshot%202023-11-24%20122037.png).
 The above  is for the Status grouping
 ### Add New Board
 There is an option provided to add the new board to the existing board, if a new task needs to be added.
