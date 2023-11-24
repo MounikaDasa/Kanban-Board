@@ -45,7 +45,8 @@ Explore the various features and functionalities to effectively manage your proj
 The core component responsible for rendering and managing Kanban boards.
 Click on the display option, you are provide with 2 options Grouping and Ordering, Select your choices for the display
  ![API Screenshot](public/images/Screenshot%202023-11-24%20121828.png)
-  ![API Screenshot](public/images/Screenshot 2023-11-24 121854.png)
+![Alt Text](https://github.com/MounikaDasa/Kanban-Board/raw/main/public/images/Screenshot%202023-11-24%20121854.png "Image Title")
+
 ### Task Board Module
 A modular component for displaying and interacting with individual task cards.
 The task cards will be displayed based on the Grouping options that you selected
