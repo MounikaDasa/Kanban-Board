@@ -1,18 +1,25 @@
-Kanban Board Project Documentation
-Introduction
+# Kanban Board Project Documentation
+
+## Introduction
+
 Welcome to the Kanban Board project documentation! This project is designed to help individuals and teams manage their tasks efficiently using the Kanban methodology. Kanban is a visual project management system that helps streamline workflow and improve overall productivity.
-Key Features
-●	Task Management: Create, edit, and organize tasks seamlessly.
-●	Visual Boards: Intuitive and visually appealing boards for task tracking.
-●	User Collaboration: Foster collaboration by assigning tasks and adding comments.
-●	Customization: Tailor boards, columns, and cards to fit your project's unique needs.
-Getting Started
-Installation
+
+## Key Features
+
+- **Task Management:** Create, edit, and organize tasks seamlessly.
+- **Visual Boards:** Intuitive and visually appealing boards for task tracking.
+- **User Collaboration:** Foster collaboration by assigning tasks and adding comments.
+- **Customization:** Tailor boards, columns, and cards to fit your project's unique needs.
+
+## Getting Started
+
+### Installation
+
 To get started with the Kanban Board project, follow these installation steps:
 
+```bash
 npm install
 
-npm install
 
 Configuration
 Make sure to configure your project settings according to your preferences.
