@@ -17,38 +17,36 @@ Welcome to the Kanban Board project documentation! This project is designed to h
 
 To get started with the Kanban Board project, follow these installation steps:
 
-```bash
-npm install
-'''
 
-Configuration
+npm install
+
+
+## Configuration
 Make sure to configure your project settings according to your preferences.
-Running the Project
+### Running the Project
 Start the project locally using the following command:
 
 npm start
 
-npm start
-Kind Note:
+#### Kind Note:
 When clicking the display button, for the first time please select either priority or the status, later you can view the user, there is some glitch in the code, due to the time constraint, I was not able to correct it.
-Features
-Visual Task Management
+## Features
+### Visual Task Management
 Our Kanban board provides a visual representation of your tasks, making it easy to track progress and prioritize work.
-User-Friendly Interface
+### User-Friendly Interface
 The user-friendly interface ensures a seamless experience, even for those new to Kanban methodology.
-Task Customization
+### Task Customization
 Tailor tasks with due dates, priorities, and tags to keep your workflow organized.
-Usage
+### Usage
 Explore the various features and functionalities to effectively manage your projects with Kanban boards.
-Components and Modules
 
-Kanban Board Component
+## Components and Modules
+### Kanban Board Component
 The core component responsible for rendering and managing Kanban boards.
 Click on the display option, you are provide with 2 options Grouping and Ordering, Select your choices for the display
  ![API Screenshot](public/images/Screenshot%202023-11-24%20121828.png)
-
   ![API Screenshot](public/images/Screenshot 2023-11-24 121854.png)
-Task Board Module
+### Task Board Module
 A modular component for displaying and interacting with individual task cards.
 The task cards will be displayed based on the Grouping options that you selected
  ![API Screenshot](public/images/Screenshot%202023-11-24%20121944.png)
@@ -58,27 +56,27 @@ The above  is for the Priority Grouping
 The above  is for the User grouping
   ![API Screenshot](public/images/Screenshot%202023-11-24%20121037.png)
 The above  is for the Status grouping
-Add New Board
+### Add New Board
 There is an option provided to add the new board to the existing board, if a new task needs to be added.
   ![API Screenshot](public/images/Screenshot%202023-11-24%20121054.png)
 
-Task Card Module:
-Delete Card:
+## Task Card Module:
+### Delete Card:
 Each card is provided with an option to delete the card on pressing … icon
   ![API Screenshot](public/images/Screenshot%202023-11-24%20122109.png)
-Add New Card: 
+### Add New Card: 
 Each card is provided with an option to add the card on pressing + icon
  ![API Screenshot](public/images/Screenshot%202023-11-24%20122129.png)
  
-Additional Information about Card: 
+### Additional Information about Card: 
 Each card is provided with an option to view additional information about the card on pressing … icon provided below the card
  ![API Screenshot](public/images/Screenshot%202023-11-24%20122146.png)
  
-Updating the Card:
+### Updating the Card:
 Each card is provided with an option to update the card on pressing Feature request button provided below the card 
  
  ![API Screenshot](public/images/Screenshot%202023-11-24%20122202.png)
-Drag and Drop:
+### Drag and Drop:
 You can drag the card from one board and place it in another board which enables one of the important feature of kanban application
   ![API Screenshot](public/images/Screenshot%202023-11-24%20122215.png)
 
