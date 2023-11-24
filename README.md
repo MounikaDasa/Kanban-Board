@@ -19,7 +19,7 @@ To get started with the Kanban Board project, follow these installation steps:
 
 ```bash
 npm install
-
+'''
 
 Configuration
 Make sure to configure your project settings according to your preferences.
