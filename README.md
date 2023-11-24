@@ -34,10 +34,12 @@ Tailor tasks with due dates, priorities, and tags to keep your workflow organize
 Usage
 Explore the various features and functionalities to effectively manage your projects with Kanban boards.
 Components and Modules
+
 Kanban Board Component
 The core component responsible for rendering and managing Kanban boards.
 Click on the display option, you are provide with 2 options Grouping and Ordering, Select your choices for the display
- 
+ ![API Screenshot](public/images/Screenshot%202023-11-24%20121828.png)
+
  
 
 Task Board Module
