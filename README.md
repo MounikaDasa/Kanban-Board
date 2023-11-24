@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+Kanban Board Project Documentation
+Introduction
+Welcome to the Kanban Board project documentation! This project is designed to help individuals and teams manage their tasks efficiently using the Kanban methodology. Kanban is a visual project management system that helps streamline workflow and improve overall productivity.
+Key Features
+●	Task Management: Create, edit, and organize tasks seamlessly.
+●	Visual Boards: Intuitive and visually appealing boards for task tracking.
+●	User Collaboration: Foster collaboration by assigning tasks and adding comments.
+●	Customization: Tailor boards, columns, and cards to fit your project's unique needs.
+Getting Started
+Installation
+To get started with the Kanban Board project, follow these installation steps:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+npm install
 
-## Available Scripts
+npm install
 
-In the project directory, you can run:
+Configuration
+Make sure to configure your project settings according to your preferences.
+Running the Project
+Start the project locally using the following command:
 
-### `npm start`
+npm start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+npm start
+Kind Note:
+When clicking the display button, for the first time please select either priority or the status, later you can view the user, there is some glitch in the code, due to the time constraint, I was not able to correct it.
+Features
+Visual Task Management
+Our Kanban board provides a visual representation of your tasks, making it easy to track progress and prioritize work.
+User-Friendly Interface
+The user-friendly interface ensures a seamless experience, even for those new to Kanban methodology.
+Task Customization
+Tailor tasks with due dates, priorities, and tags to keep your workflow organized.
+Usage
+Explore the various features and functionalities to effectively manage your projects with Kanban boards.
+Components and Modules
+Kanban Board Component
+The core component responsible for rendering and managing Kanban boards.
+Click on the display option, you are provide with 2 options Grouping and Ordering, Select your choices for the display
+ 
+ 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Task Board Module
+A modular component for displaying and interacting with individual task cards.
+The task cards will be displayed based on the Grouping options that you selected
 
-### `npm test`
+The above  is for the Priority Grouping
+ 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The above  is for the User grouping
+ 
+The above  is for the Status grouping
+Add New Board
+There is an option provided to add the new board to the existing board, if a new task needs to be added.
+ 
 
-### `npm run build`
+Task Card Module:
+Delete Card:
+Each card is provided with an option to delete the card on pressing … icon
+ 
+Add New Card: 
+Each card is provided with an option to add the card on pressing + icon
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ 
+Additional Information about Card: 
+Each card is provided with an option to view additional information about the card on pressing … icon provided below the card
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ 
+Updating the Card:
+Each card is provided with an option to update the card on pressing Feature request button provided below the card 
+ 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Drag and Drop:
+You can drag the card from one board and place it in another board which enables one of the important feature of kanban application
+ 
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Feel free to adapt and expand upon this introduction to better suit your specific Kanban project.
